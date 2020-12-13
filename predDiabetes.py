@@ -5,8 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import metrics
+from sklearn.metrics import f1_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
 
 sns.set_style('darkgrid')
 
@@ -27,7 +29,7 @@ def main():
 
     print(dataset.info())
 
-    # plotting
+    # # plotting
     sns.countplot(x=dataset['Class'], data=dataset)
     sns.displot(dataset['Pregnancies'])
     sns.displot(dataset['Glucose'])
@@ -52,7 +54,15 @@ def main():
     # splitting the data
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 
+    # feature scaling
+    # acc up to 0.(78) from 0.(72), f1 up to 0.68387 from 0.59xx
+    sc_X = StandardScaler()
+    X_train = sc_X.fit_transform(X_train)
+    X_test = sc_X.transform(X_test)
+
     # building the model with KNN algorithm
+    # this method is the most optimal, changing k manually to
+    # lower or higher value results in worse acc and f1
     k = int(math.sqrt(len(y_test)))
     if k % 2 == 0:
         k -= 1
@@ -65,11 +75,14 @@ def main():
     y_pred = knn.predict(X_test)
 
     # accuracy
+    print("Confusion matrix: ")
+    print(confusion_matrix(y_test, y_pred))
     print("Accuracy: ", format(metrics.accuracy_score(y_test, y_pred)))
+    print("F1 score:", format(f1_score(y_test, y_pred)))
 
-    print(X_test)
+    # print(X_test)
 
-    print(knn.predict_proba(X_test))
+    # print(knn.predict_proba(X_test))
 
 
 if __name__ == '__main__':
