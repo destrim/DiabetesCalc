@@ -28,7 +28,7 @@ def main():
     # split dataset
     X = dataset.iloc[:, 0:8]
     y = dataset.iloc[:, 8]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0, test_size=0.2)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=101, test_size=0.2)
 
     # feature scaling
     sc_X = StandardScaler()
