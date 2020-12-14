@@ -27,9 +27,7 @@ def main():
         mean = int(dataset[col].mean(skipna=True))
         dataset[col] = dataset[col].replace(np.NaN, mean)
 
-    print(dataset.info())
-
-    # # plotting
+    # plotting
     sns.countplot(x=dataset['Class'], data=dataset)
     sns.displot(dataset['Pregnancies'])
     sns.displot(dataset['Glucose'])
@@ -52,17 +50,18 @@ def main():
     y = dataset['Class']
 
     # splitting the data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
     # feature scaling
-    # acc up to 0.(78) from 0.(72), f1 up to 0.68387 from 0.59xx
+    # acc up to 0.(81) from 0.(76)
+    # f1 up to 0.69565 from 0.(62)
     sc_X = StandardScaler()
     X_train = sc_X.fit_transform(X_train)
     X_test = sc_X.transform(X_test)
 
     # building the model with KNN algorithm
-    # this method is the most optimal, changing k manually to
-    # lower or higher value results in worse acc and f1
+    # this method is the most optimal
+    # changing k manually to lower or higher value results in worse acc and f1
     k = int(math.sqrt(len(y_test)))
     if k % 2 == 0:
         k -= 1
