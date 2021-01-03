@@ -1,5 +1,5 @@
 # PwJSProject
-Project on Programming in Script Languages laboratories.
+Project for Programming in Script Languages laboratories.
 
 ## Description
 Project goal is to create script in _Python_ that calculates the probability of having diabetes using _Machine Learning_.
