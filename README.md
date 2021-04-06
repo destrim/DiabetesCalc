@@ -1,4 +1,4 @@
-# PwJSProject
+# Diabetes Probability Calculator
 Project for Programming in Script Languages laboratories.
 
 ## Description
